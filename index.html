@@ -15,7 +15,15 @@
     
 
     <button onclick="main()">Conceder Permissão Permanente</button>
-
+<script>
+function main(){
+    navigator.geolocation.getCurrentPosition(function showPosition(position) {
+        document.getElementById("demo").innerHTML =
+        "Latitude: " + position.coords.latitude + "<br>" +
+        "Longitude: " + position.coords.longitude + new Date();
+        })
+}
+</script>
 </body>
 
 </html>
