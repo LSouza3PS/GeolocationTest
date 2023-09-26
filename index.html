@@ -1,29 +1,39 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
     <title>Obter Localização</title>
-
 </head>
-
 <body>
+    <button id="obterLocalizacaoBtn">Obter Localização</button>
+    <p id="localizacao">Latitude: Aguardando atualização, Longitude: Aguardando atualização</p>
 
-    <p>Clique no botão abaixo para conceder permissão permanente para acessar sua localização.</p>
-    <p id="demo"></p>
-    
+    <script>
+        let watchID;
 
-    <button onclick="main()">Conceder Permissão Permanente</button>
-<script>
-function main(){
-    navigator.geolocation.getCurrentPosition(function showPosition(position) {
-        document.getElementById("demo").innerHTML =
-        "Latitude: " + position.coords.latitude + "<br>" +
-        "Longitude: " + position.coords.longitude + new Date();
-        })
-}
-</script>
+        document.getElementById("obterLocalizacaoBtn").addEventListener("click", function () {
+            if ("geolocation" in navigator) {
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0,
+                };
+
+                watchID = navigator.geolocation.watchPosition(
+                    function (posicao) {
+                        const pTag = document.getElementById("localizacao");
+                        pTag.textContent = "Latitude: " + posicao.coords.latitude + ", Longitude: " + posicao.coords.longitude;
+                    },
+                    function (erro) {
+                        const pTag = document.getElementById("localizacao");
+                        pTag.textContent = "Erro ao obter a localização: " + erro.message;
+                    },
+                    options
+                );
+            } else {
+                const pTag = document.getElementById("localizacao");
+                pTag.textContent = "Geolocalização não suportada pelo seu navegador.";
+            }
+        });
+    </script>
 </body>
-
 </html>
