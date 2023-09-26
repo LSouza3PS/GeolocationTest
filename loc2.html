@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Obter Localização</title>
+
+</head>
+
+<body>
+
+    <p>Clique no botão abaixo para conceder permissão permanente para acessar sua localização.</p>
+    <p id="demo"></p>
+    
+
+    <button onclick="main()">Conceder Permissão Permanente</button>
+<script>
+function main(){
+    navigator.geolocation.getCurrentPosition(function showPosition(position) {
+        document.getElementById("demo").innerHTML =
+        "Latitude: " + position.coords.latitude + "<br>" +
+        "Longitude: " + position.coords.longitude + new Date();
+        })
+}
+</script>
+
+</body>
+
+</html>
